@@ -44,7 +44,6 @@ class PasienController extends Controller
             return view('pasien.view', compact('data', 'riwayat'));
             // dd($rekap);
         }
-        
     }
 
     public function create()
@@ -80,4 +79,22 @@ class PasienController extends Controller
         return response()->json(['success' => 'Data Pasien Berhasil di Hapus']);
     }
 
+    public function getpasien(Request $request)
+    {
+        $search = $request->search;
+        if (empty($search)) {
+            $employees = Pasien::limit(1)->get();
+        } else {
+            $employees = Pasien::where('nama_lengkap', 'like', '%' . $search . '%')->get();
+        }
+        $response = array();
+        foreach ($employees as $employee) {
+            $response[] = array(
+                "id" => $employee->id,
+                "text" => $employee->nama_lengkap
+            );
+        }
+
+        return response()->json($response);
+    }
 }

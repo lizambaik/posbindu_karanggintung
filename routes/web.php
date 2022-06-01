@@ -27,7 +27,6 @@ Route::prefix('kader')->middleware('auth')->group(function () {
     // bagian pasien
     Route::get('pasien', [App\Http\Controllers\Kader\PasienController::class, 'index'])->name('kader.pasien');
     Route::post('pasien', [App\Http\Controllers\Kader\PasienController::class, 'getpasien'])->name('kader.pasien.ajax');
-    Route::post('asas', [App\Http\Controllers\Kader\PasienController::class, 'getpasien'])->name('kader.pasien.ajax');
     Route::get('pasien/tambah', [App\Http\Controllers\Kader\PasienController::class, 'create'])->name('kader.tambah.pasien');
     Route::post('pasien/tambah', [App\Http\Controllers\Kader\PasienController::class, 'store'])->name('kader.simpan.pasien');
     Route::get('pasien/view/{id}', [App\Http\Controllers\Kader\PasienController::class, 'view'])->name('kader.pasien.view');

@@ -13,11 +13,19 @@ class IndexController extends Controller
         return view('kader.index');
     }
 
-    public function pemeriksaan()
+    public function pemeriksaan(Request $request)
     {
+        if ($request->ajax()) {
+            # code...
+            $data = [];
+
+            if ($request->has('q')) {
+                $search = $request->q;
+                $data = Pasien::where('nama_lengkap', 'LIKE', "%$search%")->get();
+            }
+            return response()->json($data);
+        }
         $data = Pasien::select('nama_lengkap', 'id')->get();
         return view('pasien.pemeriksaan', compact('data'));
     }
-
-   
 }
